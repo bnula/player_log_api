@@ -51,6 +51,13 @@ namespace player_log_api
               c.IncludeXmlComments(xpath);
           });
             services.AddSingleton<ILoggerService, LoggerService>();
+            services.AddCors(o =>
+            {
+                o.AddPolicy("CorsPolicy", builder =>
+                    builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -81,6 +88,8 @@ namespace player_log_api
                 c.SwaggerEndpoint("/swagger/v1.0/swagger.json", "Player Log API");
                 c.RoutePrefix = "";
             });
+
+            app.UseCors("CorsPolicy");
 
             app.UseEndpoints(endpoints =>
             {
