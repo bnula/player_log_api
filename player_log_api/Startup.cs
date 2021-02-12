@@ -8,7 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using player_log_api.Contracts;
 using player_log_api.Data;
+using player_log_api.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -48,6 +50,7 @@ namespace player_log_api
               var xpath = Path.Combine(AppContext.BaseDirectory, xfile);
               c.IncludeXmlComments(xpath);
           });
+            services.AddSingleton<ILoggerService, LoggerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
