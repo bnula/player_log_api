@@ -7,10 +7,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using player_log_api.Data;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace player_log_api
@@ -33,6 +36,18 @@ namespace player_log_api
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllers();
+            services.AddSwaggerGen(c =>
+          {
+              c.SwaggerDoc("v1.0", new OpenApiInfo
+              {
+                  Title = "Player Log API",
+                  Version = "v1.0",
+                  Description = "API for player notes tracking tool"
+              });
+              var xfile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+              var xpath = Path.Combine(AppContext.BaseDirectory, xfile);
+              c.IncludeXmlComments(xpath);
+          });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +71,13 @@ namespace player_log_api
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1.0/swagger.json", "Player Log API");
+                c.RoutePrefix = "";
+            });
 
             app.UseEndpoints(endpoints =>
             {
