@@ -11,7 +11,7 @@ namespace player_log_api.Data
         public string CampaignName { get; set; }
         public virtual IList<Character> Characters { get; set; }
         public virtual IList<Location> Locations { get; set; }
-        public virtual IList<NPC> NPCs { get; set; }
+        public virtual IList<Npc> Npcs { get; set; }
         public virtual IList<Quest> Quests { get; set; }
         public virtual IList<Army> Armies { get; set; }
     }

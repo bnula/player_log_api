@@ -18,7 +18,7 @@ namespace player_log_api.Data
         public Location StartingLocation { get; set; }
         public int QuestGiverID { get; set; }
         [ForeignKey("QuestGiverID")]
-        public NPC QuestGiver { get; set; }
+        public Npc QuestGiver { get; set; }
         public int CampaignID { get; set; }
         [ForeignKey("CampaignID")]
         public Campaign Campaign { get; set; }

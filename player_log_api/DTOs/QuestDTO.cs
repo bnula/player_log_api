@@ -15,7 +15,7 @@ namespace player_log_api.DTOs
         public int StartingLocationID { get; set; }
         public LocationDTO StartingLocation { get; set; }
         public int QuestGiverID { get; set; }
-        public NPCDTO QuestGiver { get; set; }
+        public NpcDTO QuestGiver { get; set; }
         public int CampaignID { get; set; }
         public CampaignDTO Campaign { get; set; }
     }

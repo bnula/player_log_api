@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace player_log_api.DTOs
 {
-    public class NPCDTO
+    public class NpcDTO
     {
-        public int NPCID { get; set; }
-        public string NPCName { get; set; }
+        public int NpcID { get; set; }
+        public string NpcName { get; set; }
         public string Allegiance { get; set; }
         public string Description { get; set; }
         public string Notes { get; set; }

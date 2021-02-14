@@ -16,7 +16,7 @@ namespace player_log_api.Mappings
             CreateMap<Army, ArmyDTO>().ReverseMap();
             CreateMap<Character, CharacterDTO>().ReverseMap();
             CreateMap<Location, LocationDTO>().ReverseMap();
-            CreateMap<NPC, NPCDTO>().ReverseMap();
+            CreateMap<Npc, NpcDTO>().ReverseMap();
             CreateMap<Quest, QuestDTO>().ReverseMap();
         }
     }

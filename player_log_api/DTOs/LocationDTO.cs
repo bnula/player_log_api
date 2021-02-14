@@ -15,8 +15,8 @@ namespace player_log_api.DTOs
         public string LocationInventory { get; set; }
         public int CampaignID { get; set; }
         public CampaignDTO Campaign { get; set; }
-        public virtual IList<NPCDTO> BaseNPCs { get; set; }
-        public virtual IList<NPCDTO> CurrentNPCs { get; set; }
+        public virtual IList<NpcDTO> BaseNpcs { get; set; }
+        public virtual IList<NpcDTO> CurrentNpcs { get; set; }
         public virtual IList<QuestDTO> RelatedQuests { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace player_log_api.Data
         public Location CurrentLocation { get; set; }
         public int LeaderID { get; set; }
         [ForeignKey("LeaderID")]
-        public NPC Leader { get; set; }
+        public Npc Leader { get; set; }
         [ForeignKey("CampaignID")]
         public int CampaignID { get; set; }
         public Campaign Campaign { get; set; }
