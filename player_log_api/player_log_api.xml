@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>player_log_api</name>
+    </assembly>
+    <members>
+        <member name="T:player_log_api.Controllers.CampaignsController">
+            <summary>
+            Endpoint to interact with the Campaigns table in Player Log API
+            </summary>
+        </member>
+        <member name="M:player_log_api.Controllers.CampaignsController.GetCampaigns">
+            <summary>
+            Get all Campaign records
+            </summary>
+            <returns>List of Campaign records</returns>
+        </member>
+    </members>
+</doc>

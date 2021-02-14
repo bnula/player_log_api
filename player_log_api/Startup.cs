@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using player_log_api.Contracts;
 using player_log_api.Data;
+using player_log_api.Mappings;
 using player_log_api.Services;
 using System;
 using System.Collections.Generic;
@@ -35,9 +36,13 @@ namespace player_log_api
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+            
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            
             services.AddControllers();
+
+            services.AddAutoMapper(typeof(Maps));
 
             services.AddCors(o =>
             {
