@@ -38,19 +38,7 @@ namespace player_log_api
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-          {
-              c.SwaggerDoc("v1.0", new OpenApiInfo
-              {
-                  Title = "Player Log API",
-                  Version = "v1.0",
-                  Description = "API for player notes tracking tool"
-              });
-              var xfile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-              var xpath = Path.Combine(AppContext.BaseDirectory, xfile);
-              c.IncludeXmlComments(xpath);
-          });
-            services.AddSingleton<ILoggerService, LoggerService>();
+
             services.AddCors(o =>
             {
                 o.AddPolicy("CorsPolicy", builder =>
@@ -58,6 +46,31 @@ namespace player_log_api
                     .AllowAnyMethod()
                     .AllowAnyHeader());
             });
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1.0", new OpenApiInfo
+                {
+                    Title = "Player Log API",
+                    Version = "v1.0",
+                    Description = "API for player notes tracking tool"
+                });
+                var xfile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xpath = Path.Combine(AppContext.BaseDirectory, xfile);
+                c.IncludeXmlComments(xpath);
+            });
+
+            services.AddSingleton<ILoggerService, LoggerService>();
+            services.AddScoped<IArmyRepository, ArmyRepository>();
+            services.AddScoped<ICampaignRepository, CampaignRepository>();
+            services.AddScoped<ICharacterRepository, CharacterRepository>();
+            services.AddScoped<ILocationRepository, LocationRepository>();
+            services.AddScoped<INpcRepository, NpcRepository>();
+            services.AddScoped<IQuestRepository, QuestRepository>();
+
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
