@@ -11,7 +11,7 @@ namespace player_log_api.Data
         public int ArmyID { get; set; }
         public string Description { get; set; }
         public string Notes { get; set; }
-        public string Composition { get; set; }
+        public string ArmyComposition { get; set; }
         public int HomeLocationID { get; set; }
         [ForeignKey("HomeLocationID")]
         public Location HomeLocation { get; set; }

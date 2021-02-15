@@ -14,8 +14,8 @@ namespace player_log_api.DTOs
         public string Notes { get; set; }
         public int HomeLocationID { get; set; }
         public LocationDTO HomeLocation { get; set; }
-        public int CurrentLocationID { get; set; }
-        public LocationDTO CurrentLocation { get; set; }
+        //public int CurrentLocationID { get; set; }
+        //public LocationDTO CurrentLocation { get; set; }
         public int CampaignID { get; set; }
         public CampaignDTO Campaign { get; set; }
         public virtual IList<QuestDTO> RelatedQuests { get; set; }

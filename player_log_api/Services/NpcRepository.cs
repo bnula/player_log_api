@@ -31,9 +31,9 @@ namespace player_log_api.Services
         {
             var items = await _db.Npcs
                 .Include(q => q.HomeLocation)
-                .Include(q => q.CurrentLocation)
                 .Include(q => q.Campaign)
                 .Include(q => q.RelatedQuests)
+                //.Include(q => q.CurrentLocation)
                 .ToListAsync();
             return items;
         }
@@ -42,9 +42,9 @@ namespace player_log_api.Services
         {
             var item = await _db.Npcs
                 .Include(q => q.HomeLocation)
-                .Include(q => q.CurrentLocation)
                 .Include(q => q.Campaign)
                 .Include(q => q.RelatedQuests)
+                //.Include(q => q.CurrentLocation)
                 .FirstOrDefaultAsync(q => q.NpcID == id);
             return item;
         }

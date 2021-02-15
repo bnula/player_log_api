@@ -10,7 +10,7 @@ namespace player_log_api.DTOs
         public int ArmyID { get; set; }
         public string Description { get; set; }
         public string Notes { get; set; }
-        public string Composition { get; set; }
+        public string ArmyComposition { get; set; }
         public int HomeLocationID { get; set; }
         public LocationDTO HomeLocation { get; set; }
         public int CurrentLocationID { get; set; }

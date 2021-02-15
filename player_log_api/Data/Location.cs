@@ -18,7 +18,7 @@ namespace player_log_api.Data
         [ForeignKey("CampaignID")]
         public Campaign Campaign { get; set; }
         public virtual IList<Npc> HomeNpcs { get; set; }
-        public virtual IList<Npc> CurrentNpcs { get; set; }
+        //public virtual IList<Npc> CurrentNpcs { get; set; }
         public virtual IList<Quest> RelatedQuests { get; set; }
     }
 }

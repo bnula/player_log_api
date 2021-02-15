@@ -16,9 +16,9 @@ namespace player_log_api.Data
         public int HomeLocationID { get; set; }
         [ForeignKey("HomeLocationID")]
         public Location HomeLocation { get; set; }
-        public int CurrentLocationID { get; set; }
-        [ForeignKey("CurrentLocation")]
-        public Location CurrentLocation { get; set; }
+        //public int CurrentLocationID { get; set; }
+        //[ForeignKey("CurrentLocation")]
+        //public Location CurrentLocation { get; set; }
         public int CampaignID { get; set; }
         [ForeignKey("CampaignID")]
         public Campaign Campaign { get; set; }
