@@ -1,0 +1,4 @@
+﻿TODO:		check if the controller needs a special log for Empty Update Body Request
+				- Npc has a special if block
+				- Location doesn't
+				- check logs
