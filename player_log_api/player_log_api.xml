@@ -37,9 +37,49 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:player_log_api.Controllers.CampaignsController.Delete(System.Int32)">
+        <member name="M:player_log_api.Controllers.CampaignsController.DeleteCampaign(System.Int32)">
             <summary>
             Delete a Campaign Item
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:player_log_api.Controllers.LocationsController">
+            <summary>
+            Endpoint for interacting with Location Table in PLayer Log API
+            </summary>
+        </member>
+        <member name="M:player_log_api.Controllers.LocationsController.GetLocations">
+            <summary>
+            Get all Location records
+            </summary>
+            <returns>List of Location records</returns>
+        </member>
+        <member name="M:player_log_api.Controllers.LocationsController.GetLocation(System.Int32)">
+            <summary>
+            Get a single Location record
+            </summary>
+            <param name="id"></param>
+            <returns>a Location record</returns>
+        </member>
+        <member name="M:player_log_api.Controllers.LocationsController.CreateLocation(player_log_api.DTOs.LocationDTO)">
+            <summary>
+            Create a new Location record
+            </summary>
+            <param name="itemDTO"></param>
+            <returns>Location record</returns>
+        </member>
+        <member name="M:player_log_api.Controllers.LocationsController.UpdateLocation(player_log_api.DTOs.LocationDTO,System.Int32)">
+            <summary>
+            Update an existing Location record
+            </summary>
+            <param name="itemDTO"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:player_log_api.Controllers.LocationsController.DeleteLocation(System.Int32)">
+            <summary>
+            Delete a Location record
             </summary>
             <param name="id"></param>
             <returns></returns>
