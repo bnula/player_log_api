@@ -79,6 +79,7 @@ namespace player_log_api.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetCampaign(int id)
         {
@@ -86,6 +87,11 @@ namespace player_log_api.Controllers
             try
             {
                 _logger.LogInfo($"{controllerName}: Attempted Call - Item ID: {id}");
+                if (id < 1)
+                {
+                    _logger.LogWarn($"{controllerName}: Invalid ID - Item ID: {id}");
+                    return BadRequest();
+                }
                 var item = await _campRepo.FindByID(id);
                 if (item == null)
                 {
@@ -206,7 +212,7 @@ namespace player_log_api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteCampaign(int id)
         {
             var controllerName = GetControllerActionNames();
             try
@@ -217,12 +223,13 @@ namespace player_log_api.Controllers
                     _logger.LogWarn($"{controllerName}: Invalid ID - Item ID: {id}");
                     return BadRequest();
                 }
-                var item = await _campRepo.FindByID(id);
-                if (item == null)
+                if (!await _locRepo.RecordExistsByID(id))
                 {
                     _logger.LogWarn($"{controllerName}: Not Found - Item ID: {id}");
                     return NotFound();
                 }
+                var item = await _campRepo.FindByID(id);
+                if (item == null)
 
                 _logger.LogInfo($"{controllerName}: Attempting Delete - Item ID: {id}");
                 var isSuccess = await _campRepo.Delete(item);
