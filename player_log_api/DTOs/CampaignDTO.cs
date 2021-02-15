@@ -9,10 +9,16 @@ namespace player_log_api.DTOs
     {
         public int CampaignID { get; set; }
         public string CampaignName { get; set; }
-        public virtual IList<CharacterDTO> Characters { get; set; }
-        public virtual IList<LocationDTO> Locations { get; set; }
-        public virtual IList<NpcDTO> Npcs { get; set; }
-        public virtual IList<QuestDTO> Quests { get; set; }
-        public virtual IList<ArmyDTO> Armies { get; set; }
+        public virtual IList<ListCharacterDTO> Characters { get; set; }
+        public virtual IList<ListLocationDTO> Locations { get; set; }
+        public virtual IList<ListNpcDTO> Npcs { get; set; }
+        public virtual IList<ListQuestDTO> Quests { get; set; }
+        public virtual IList<ListArmyDTO> Armies { get; set; }
+    }
+    
+    public class ListCampaignDTO
+    {
+        public int CampaignID { get; set; }
+        public string CampaignName { get; set; }
     }
 }

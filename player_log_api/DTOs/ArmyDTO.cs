@@ -12,12 +12,20 @@ namespace player_log_api.DTOs
         public string Notes { get; set; }
         public string ArmyComposition { get; set; }
         public int HomeLocationID { get; set; }
-        public LocationDTO HomeLocation { get; set; }
+        public ListLocationDTO HomeLocation { get; set; }
         public int CurrentLocationID { get; set; }
-        public LocationDTO CurrentLocation { get; set; }
+        public ListLocationDTO CurrentLocation { get; set; }
         public int LeaderID { get; set; }
-        public NpcDTO Leader { get; set; }
+        public ListNpcDTO Leader { get; set; }
         public int CampaignID { get; set; }
-        public CampaignDTO Campaign { get; set; }
+        public ListCampaignDTO Campaign { get; set; }
+    }
+
+    public class ListArmyDTO
+    {
+        public int ArmyID { get; set; }
+        public string Description { get; set; }
+        public string Notes { get; set; }
+        public string ArmyComposition { get; set; }
     }
 }

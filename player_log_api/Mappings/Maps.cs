@@ -13,11 +13,17 @@ namespace player_log_api.Mappings
         public Maps()
         {
             CreateMap<Campaign, CampaignDTO>().ReverseMap();
+            CreateMap<Campaign, ListCampaignDTO>().ReverseMap();
             CreateMap<Army, ArmyDTO>().ReverseMap();
+            CreateMap<Army, ListArmyDTO>().ReverseMap();
             CreateMap<Character, CharacterDTO>().ReverseMap();
+            CreateMap<Character, ListCharacterDTO>().ReverseMap();
             CreateMap<Location, LocationDTO>().ReverseMap();
+            CreateMap<Location, ListLocationDTO>().ReverseMap();
             CreateMap<Npc, NpcDTO>().ReverseMap();
+            CreateMap<Npc, ListNpcDTO>().ReverseMap();
             CreateMap<Quest, QuestDTO>().ReverseMap();
+            CreateMap<Quest, ListQuestDTO>().ReverseMap();
         }
     }
 }

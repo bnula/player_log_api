@@ -13,10 +13,19 @@ namespace player_log_api.DTOs
         public string Description { get; set; }
         public string Notes { get; set; }
         public int StartingLocationID { get; set; }
-        public LocationDTO StartingLocation { get; set; }
+        public ListLocationDTO StartingLocation { get; set; }
         public int QuestGiverID { get; set; }
-        public NpcDTO QuestGiver { get; set; }
+        public ListNpcDTO QuestGiver { get; set; }
         public int CampaignID { get; set; }
-        public CampaignDTO Campaign { get; set; }
+        public ListCampaignDTO Campaign { get; set; }
+    }
+
+    public class ListQuestDTO
+    {
+        public int QuestID { get; set; }
+        public string QuestName { get; set; }
+        public string Reward { get; set; }
+        public string Description { get; set; }
+        public string Notes { get; set; }
     }
 }

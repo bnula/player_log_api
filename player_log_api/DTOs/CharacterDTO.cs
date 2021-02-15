@@ -13,6 +13,15 @@ namespace player_log_api.DTOs
         public string Description { get; set; }
         public string Notes { get; set; }
         public int CampaignID { get; set; }
-        public CampaignDTO Campaign { get; set; }
+        public ListCampaignDTO Campaign { get; set; }
+    }
+
+    public class ListCharacterDTO
+    {
+        public int CharacterID { get; set; }
+        public string CharacterName { get; set; }
+        public int Level { get; set; }
+        public string Description { get; set; }
+        public string Notes { get; set; }
     }
 }
