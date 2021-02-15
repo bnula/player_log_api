@@ -15,5 +15,34 @@
             </summary>
             <returns>List of Campaign records</returns>
         </member>
+        <member name="M:player_log_api.Controllers.CampaignsController.GetCampaign(System.Int32)">
+            <summary>
+            Get a single Campaign record
+            </summary>
+            <param name="id"></param>
+            <returns>Campaign record</returns>
+        </member>
+        <member name="M:player_log_api.Controllers.CampaignsController.CreateCampaign(player_log_api.DTOs.CampaignDTO)">
+            <summary>
+            Creates a new Campaign item
+            </summary>
+            <param name="campaign"></param>
+            <returns>Campaign Item</returns>
+        </member>
+        <member name="M:player_log_api.Controllers.CampaignsController.UpdateCampaign(player_log_api.DTOs.CampaignDTO,System.Int32)">
+            <summary>
+            Update a Campaign Item
+            </summary>
+            <param name="campaign"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:player_log_api.Controllers.CampaignsController.Delete(System.Int32)">
+            <summary>
+            Delete a Campaign Item
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>
