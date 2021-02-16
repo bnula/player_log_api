@@ -84,5 +84,45 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="T:player_log_api.Controllers.NpcsController">
+            <summary>
+            Endpoint for interacting with Npc table of Player Log API
+            </summary>
+        </member>
+        <member name="M:player_log_api.Controllers.NpcsController.GetNpcs">
+            <summary>
+            Get all Npc records
+            </summary>
+            <returns>List of Npc records</returns>
+        </member>
+        <member name="M:player_log_api.Controllers.NpcsController.GetNpc(System.Int32)">
+            <summary>
+            Get an Npc record
+            </summary>
+            <param name="id"></param>
+            <returns>Npc record</returns>
+        </member>
+        <member name="M:player_log_api.Controllers.NpcsController.CreateNpc(player_log_api.DTOs.NpcDTO)">
+            <summary>
+            Create a new Npc record
+            </summary>
+            <param name="itemDTO"></param>
+            <returns>Npc record</returns>
+        </member>
+        <member name="M:player_log_api.Controllers.NpcsController.UpdateNpc(player_log_api.DTOs.NpcDTO,System.Int32)">
+            <summary>
+            Update an Npc record
+            </summary>
+            <param name="itemDTO"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:player_log_api.Controllers.NpcsController.DeleteNpc(System.Int32)">
+            <summary>
+            Delete an Npc record
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

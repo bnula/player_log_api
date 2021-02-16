@@ -70,7 +70,7 @@ namespace player_log_api.Controllers
             var controllerName = GetControllerActionNames();
             try
             {
-                _logger.LogInfo($"{controllerName}: Attempted Call");
+                _logger.LogInfo($"{controllerName}: Attempted Call - Item ID: {id}");
                 if (id < 1)
                 {
                     _logger.LogWarn($"{controllerName}: Invalid ID - Item ID: {id}");
@@ -81,9 +81,9 @@ namespace player_log_api.Controllers
                     _logger.LogWarn($"{controllerName}: Not Found - Item ID: {id}");
                     return NotFound();
                 }
-                var item = _npcRepo.FindByID(id);
+                var item = await _npcRepo.FindByID(id);
                 var response = _mapper.Map<NpcDTO>(item);
-                _logger.LogInfo($"{controllerName}: Call Successful");
+                _logger.LogInfo($"{controllerName}: Call Successful - Item ID: {id}");
                 return Ok(response);
             }
             catch (Exception ex)
