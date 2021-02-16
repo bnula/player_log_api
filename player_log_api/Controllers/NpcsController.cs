@@ -95,7 +95,7 @@ namespace player_log_api.Controllers
         /// <summary>
         /// Create a new Npc record
         /// </summary>
-        /// <param name="itemDTO"></param>
+        /// <param name="npc"></param>
         /// <returns>Npc record</returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -139,7 +139,7 @@ namespace player_log_api.Controllers
         /// <summary>
         /// Update an Npc record
         /// </summary>
-        /// <param name="itemDTO"></param>
+        /// <param name="npc"></param>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPut("{id}")]

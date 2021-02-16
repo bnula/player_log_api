@@ -44,6 +44,46 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="T:player_log_api.Controllers.CharactersController">
+            <summary>
+            Endpoint to interact with Characters table of Player Log API
+            </summary>
+        </member>
+        <member name="M:player_log_api.Controllers.CharactersController.GetCharacters">
+            <summary>
+            Get all Character records
+            </summary>
+            <returns>List of Character records</returns>
+        </member>
+        <member name="M:player_log_api.Controllers.CharactersController.GetCharacter(System.Int32)">
+            <summary>
+            Get a single Character record
+            </summary>
+            <param name="id"></param>
+            <returns>Character record</returns>
+        </member>
+        <member name="M:player_log_api.Controllers.CharactersController.CreateCharacter(player_log_api.DTOs.CharacterDTO)">
+            <summary>
+            Create a new Character record
+            </summary>
+            <param name="character"></param>
+            <returns>Character record</returns>
+        </member>
+        <member name="M:player_log_api.Controllers.CharactersController.UpdateCharacter(player_log_api.DTOs.CharacterDTO,System.Int32)">
+            <summary>
+            Update a Character record
+            </summary>
+            <param name="character"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:player_log_api.Controllers.CharactersController.DeleteCharacter(System.Int32)">
+            <summary>
+            Delete a Character Record
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="T:player_log_api.Controllers.LocationsController">
             <summary>
             Endpoint for interacting with Location Table in PLayer Log API
@@ -66,14 +106,14 @@
             <summary>
             Create a new Location record
             </summary>
-            <param name="itemDTO"></param>
+            <param name="location"></param>
             <returns>Location record</returns>
         </member>
         <member name="M:player_log_api.Controllers.LocationsController.UpdateLocation(player_log_api.DTOs.LocationDTO,System.Int32)">
             <summary>
             Update an existing Location record
             </summary>
-            <param name="itemDTO"></param>
+            <param name="location"></param>
             <param name="id"></param>
             <returns></returns>
         </member>
@@ -106,14 +146,14 @@
             <summary>
             Create a new Npc record
             </summary>
-            <param name="itemDTO"></param>
+            <param name="npc"></param>
             <returns>Npc record</returns>
         </member>
         <member name="M:player_log_api.Controllers.NpcsController.UpdateNpc(player_log_api.DTOs.NpcDTO,System.Int32)">
             <summary>
             Update an Npc record
             </summary>
-            <param name="itemDTO"></param>
+            <param name="npc"></param>
             <param name="id"></param>
             <returns></returns>
         </member>

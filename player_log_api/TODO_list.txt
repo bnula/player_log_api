@@ -2,3 +2,5 @@
 				- Npc has a special if block
 				- Location doesn't
 				- check logs
+
+TODO:		will need to add CreateDTOs with indexes for linked tables
