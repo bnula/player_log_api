@@ -4,6 +4,46 @@
         <name>player_log_api</name>
     </assembly>
     <members>
+        <member name="T:player_log_api.Controllers.ArmiesController">
+            <summary>
+            Endpoint to interact with Armies table of Player Log API
+            </summary>
+        </member>
+        <member name="M:player_log_api.Controllers.ArmiesController.GetArmies">
+            <summary>
+            Get all Army records
+            </summary>
+            <returns>List of Army records</returns>
+        </member>
+        <member name="M:player_log_api.Controllers.ArmiesController.GetArmy(System.Int32)">
+            <summary>
+            Get an Army record
+            </summary>
+            <param name="id"></param>
+            <returns>Army record</returns>
+        </member>
+        <member name="M:player_log_api.Controllers.ArmiesController.CreateArmy(player_log_api.DTOs.ArmyDTO)">
+            <summary>
+            Create a new Army record
+            </summary>
+            <param name="army"></param>
+            <returns>Army record</returns>
+        </member>
+        <member name="M:player_log_api.Controllers.ArmiesController.UpdateArmy(player_log_api.DTOs.ArmyDTO,System.Int32)">
+            <summary>
+            Update an Army record
+            </summary>
+            <param name="army"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:player_log_api.Controllers.ArmiesController.DeleteArmy(System.Int32)">
+            <summary>
+            Delete an Aremy record
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="T:player_log_api.Controllers.CampaignsController">
             <summary>
             Endpoint to interact with the Campaigns table in Player Log API
