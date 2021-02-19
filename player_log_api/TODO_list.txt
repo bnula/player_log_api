@@ -4,3 +4,4 @@
 				- check logs
 
 TODO:		will need to add CreateDTOs with indexes for linked tables
+TODO:		add authentication

@@ -204,5 +204,45 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="T:player_log_api.Controllers.QuestsController">
+            <summary>
+            Endpoint used to interact with Quests table of Player Log API
+            </summary>
+        </member>
+        <member name="M:player_log_api.Controllers.QuestsController.GetQuests">
+            <summary>
+            Get a list of all Quest records
+            </summary>
+            <returns>a list of Quest records</returns>
+        </member>
+        <member name="M:player_log_api.Controllers.QuestsController.GetQuest(System.Int32)">
+            <summary>
+            Get a Quest record
+            </summary>
+            <param name="id"></param>
+            <returns>Quest record</returns>
+        </member>
+        <member name="M:player_log_api.Controllers.QuestsController.CreateQuest(player_log_api.DTOs.QuestDTO)">
+            <summary>
+            Create a new Quest record
+            </summary>
+            <param name="quest"></param>
+            <returns>Quest record</returns>
+        </member>
+        <member name="M:player_log_api.Controllers.QuestsController.UpdateQuest(player_log_api.DTOs.QuestDTO,System.Int32)">
+            <summary>
+            Update a Quest record
+            </summary>
+            <param name="quest"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:player_log_api.Controllers.QuestsController.DeleteQuest(System.Int32)">
+            <summary>
+            Delete a Quest record
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>
