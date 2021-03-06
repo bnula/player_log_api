@@ -21,6 +21,18 @@ namespace player_log_api.DTOs
         public ListCampaignDTO Campaign { get; set; }
     }
 
+    public class UpsertArmyDTO
+    {
+        public int ArmyID { get; set; }
+        public string Description { get; set; }
+        public string Notes { get; set; }
+        public string ArmyComposition { get; set; }
+        public int HomeLocationID { get; set; }
+        public int CurrentLocationID { get; set; }
+        public int LeaderID { get; set; }
+        public int CampaignID { get; set; }
+    }
+
     public class ListArmyDTO
     {
         public int ArmyID { get; set; }

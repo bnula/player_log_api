@@ -12,41 +12,41 @@ using System.Threading.Tasks;
 namespace player_log_api.Controllers
 {
     /// <summary>
-    /// Endpoint for interacting with Npc table of Player Log API
+    /// Endpoint used to interact with Quests table of Player Log API
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    public class NpcsController : ControllerBase
+    public class QuestsController : ControllerBase
     {
-        private readonly INpcRepository _npcRepo;
-        private readonly ILoggerService _logger;
+        private readonly IQuestRepository _questRepo;
         private readonly IMapper _mapper;
-        public NpcsController(
-            INpcRepository npcRepo,
-            ILoggerService logger,
-            IMapper mapper)
+        private readonly ILoggerService _logger;
+        public QuestsController(
+            IQuestRepository questRepo,
+            IMapper mapper,
+            ILoggerService logger)
         {
-            _npcRepo = npcRepo;
-            _logger = logger;
+            _questRepo = questRepo;
             _mapper = mapper;
+            _logger = logger;
         }
 
         /// <summary>
-        /// Get all Npc records
+        /// Get a list of all Quest records
         /// </summary>
-        /// <returns>List of Npc records</returns>
+        /// <returns>a list of Quest records</returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetNpcs()
+        public async Task<IActionResult> GetQuests()
         {
             var controllerName = GetControllerActionNames();
             try
             {
                 _logger.LogInfo($"{controllerName}: Attempted Call");
-                var items = await _npcRepo.FindAll();
-                var response = _mapper.Map<List<NpcDTO>>(items);
-                _logger.LogInfo($"{controllerName}: Success");
+                var items = await _questRepo.FindAll();
+                var response = _mapper.Map<List<QuestDTO>>(items);
+                _logger.LogInfo($"{controllerName}: Success!");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -54,18 +54,18 @@ namespace player_log_api.Controllers
                 return InternalError($"{controllerName}: {ex.Message} - {ex.InnerException}");
             }
         }
-        
+
         /// <summary>
-        /// Get an Npc record
+        /// Get a Quest record
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>Npc record</returns>
+        /// <returns>Quest record</returns>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetNpc(int id)
+        public async Task<IActionResult> GetQuest(int id)
         {
             var controllerName = GetControllerActionNames();
             try
@@ -76,14 +76,14 @@ namespace player_log_api.Controllers
                     _logger.LogWarn($"{controllerName}: Invalid ID - Item ID: {id}");
                     return BadRequest();
                 }
-                if (!await _npcRepo.RecordExistsByID(id))
+                if (!await _questRepo.RecordExistsByID(id))
                 {
                     _logger.LogWarn($"{controllerName}: Not Found - Item ID: {id}");
                     return NotFound();
                 }
-                var item = await _npcRepo.FindByID(id);
-                var response = _mapper.Map<NpcDTO>(item);
-                _logger.LogInfo($"{controllerName}: Call Successful - Item ID: {id}");
+                var item = await _questRepo.FindByID(id);
+                _logger.LogInfo($"{controllerName}: Success - Item ID: {id}");
+                var response = _mapper.Map<Quest>(item);
                 return Ok(response);
             }
             catch (Exception ex)
@@ -93,15 +93,15 @@ namespace player_log_api.Controllers
         }
 
         /// <summary>
-        /// Create a new Npc record
+        /// Create a new Quest record
         /// </summary>
-        /// <param name="npc"></param>
-        /// <returns>Npc record</returns>
+        /// <param name="quest"></param>
+        /// <returns>Quest record</returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreateNpc([FromBody] NpcDTO itemDTO)
+        public async Task<IActionResult> CreateQuest([FromBody] UpsertQuestDTO itemDTO)
         {
             var controllerName = GetControllerActionNames();
             try
@@ -110,19 +110,16 @@ namespace player_log_api.Controllers
                 if (itemDTO == null)
                 {
                     _logger.LogWarn($"{controllerName}: Empty Request Body");
-                    return BadRequest(ModelState);
+                    return BadRequest();
                 }
                 if (!ModelState.IsValid)
                 {
                     _logger.LogWarn($"{controllerName}: Invalid Data");
-                    return BadRequest(ModelState);
+                    return BadRequest();
                 }
-
-                var item = _mapper.Map<Npc>(itemDTO);
-
+                var item = _mapper.Map<Quest>(itemDTO);
                 _logger.LogInfo($"{controllerName}: Attempted Create");
-
-                var isSuccess = await _npcRepo.Create(item);
+                var isSuccess = await _questRepo.Create(item);
                 if (!isSuccess)
                 {
                     return InternalError($"{controllerName}: Create Failed");
@@ -137,9 +134,9 @@ namespace player_log_api.Controllers
         }
 
         /// <summary>
-        /// Update an Npc record
+        /// Update a Quest record
         /// </summary>
-        /// <param name="npc"></param>
+        /// <param name="quest"></param>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
@@ -147,13 +144,13 @@ namespace player_log_api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> UpdateNpc([FromBody] NpcDTO itemDTO, int id)
+        public async Task<IActionResult> UpdateQuest([FromBody] UpsertQuestDTO itemDTO, int id)
         {
             var controllerName = GetControllerActionNames();
             try
             {
                 _logger.LogInfo($"{controllerName}: Attempted Call - Item ID: {id}");
-                if (id < 1 || id != itemDTO.NpcID)
+                if (id < 1 || id != itemDTO.QuestID)
                 {
                     _logger.LogWarn($"{controllerName}: Invalid ID - Item ID: {id}");
                     return BadRequest();
@@ -163,26 +160,23 @@ namespace player_log_api.Controllers
                     _logger.LogWarn($"{controllerName}: Empty Request Body");
                     return BadRequest();
                 }
-                if (!ModelState.IsValid)
-                {
-                    _logger.LogWarn($"{controllerName}: Invalid Data - Item ID: {id}");
-                    return BadRequest(ModelState);
-                }
-                if (!await _npcRepo.RecordExistsByID(id))
+                if (!await _questRepo.RecordExistsByID(id))
                 {
                     _logger.LogWarn($"{controllerName}: Not Found - Item ID: {id}");
                     return NotFound();
                 }
-
-                var item = _mapper.Map<Npc>(itemDTO);
-                _logger.LogInfo($"{controllerName}: Attempting Update - Item ID: {id}");
-                var isSuccess = await _npcRepo.Update(item);
-
+                if (!ModelState.IsValid)
+                {
+                    _logger.LogWarn($"{controllerName}: Invalid Request Data");
+                    return BadRequest();
+                }
+                var item = _mapper.Map<Quest>(itemDTO);
+                _logger.LogInfo($"{controllerName}: Attempted Update - Item ID: {id}");
+                var isSuccess = await _questRepo.Update(item);
                 if (!isSuccess)
                 {
                     return InternalError($"{controllerName}: Update Failed - Item ID: {id}");
                 }
-
                 _logger.LogInfo($"{controllerName}: Update Successful - Item ID: {id}");
                 return NoContent();
             }
@@ -193,7 +187,7 @@ namespace player_log_api.Controllers
         }
 
         /// <summary>
-        /// Delete an Npc record
+        /// Delete a Quest record
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -202,25 +196,25 @@ namespace player_log_api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> DeleteNpc(int id)
+        public async Task<IActionResult> DeleteQuest(int id)
         {
             var controllerName = GetControllerActionNames();
             try
             {
-                _logger.LogInfo($"{controllerName}: Attempting Call");
+                _logger.LogInfo($"{controllerName}: Attempted Call - Item ID: {id}");
                 if (id < 1)
                 {
                     _logger.LogWarn($"{controllerName}: Invalid ID - Item ID: {id}");
                     return BadRequest();
                 }
-                if (!await _npcRepo.RecordExistsByID(id))
+                if (!await _questRepo.RecordExistsByID(id))
                 {
                     _logger.LogWarn($"{controllerName}: Not Found - Item ID: {id}");
                     return NotFound();
                 }
-                var item = await _npcRepo.FindByID(id);
-                _logger.LogInfo($"{controllerName}: Attempting Delete - Item ID: {id}");
-                var isSuccess = await _npcRepo.Delete(item);
+                var item = await _questRepo.FindByID(id);
+                _logger.LogInfo($"{controllerName}: Attempted Delte - Item ID: {id}");
+                var isSuccess = await _questRepo.Delete(item);
                 if (!isSuccess)
                 {
                     return InternalError($"{controllerName}: Delete Failed - Item ID: {id}");
@@ -234,17 +228,18 @@ namespace player_log_api.Controllers
             }
         }
 
-        private ObjectResult InternalError(string message)
-        {
-            _logger.LogError(message);
-            return StatusCode(500, "Something went wrong, contact administrator.");
-        }
-
         private string GetControllerActionNames()
         {
             var controller = ControllerContext.ActionDescriptor.ControllerName;
             var action = ControllerContext.ActionDescriptor.ActionName;
+
             return $"{controller} - {action}";
+        }
+
+        private ObjectResult InternalError(string message)
+        {
+            _logger.LogError(message);
+            return StatusCode(500, "Something went wrong, please contact administrator.");
         }
     }
 }

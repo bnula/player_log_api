@@ -3,5 +3,6 @@
 				- Location doesn't
 				- check logs
 
-TODO:		will need to add CreateDTOs with indexes for linked tables
+Done TODO:		will need to add CreateDTOs with indexes for linked tables
 TODO:		add authentication
+TODO:		rework to be more SOLID based

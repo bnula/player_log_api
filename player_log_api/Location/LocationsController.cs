@@ -102,7 +102,7 @@ namespace player_log_api.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreateLocation([FromBody] LocationDTO itemDTO)
+        public async Task<IActionResult> CreateLocation([FromBody] UpsertLocationDTO itemDTO)
         {
             var controllerName = GetControllerActionNames();
             try
@@ -145,7 +145,7 @@ namespace player_log_api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> UpdateLocation([FromBody] LocationDTO itemDTO, int id)
+        public async Task<IActionResult> UpdateLocation([FromBody] UpsertLocationDTO itemDTO, int id)
         {
             var controllerName = GetControllerActionNames();
             try

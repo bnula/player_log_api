@@ -12,40 +12,40 @@ using System.Threading.Tasks;
 namespace player_log_api.Controllers
 {
     /// <summary>
-    /// Endpoint to interact with Characters table of Player Log API
+    /// Endpoint to interact with Armies table of Player Log API
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    public class CharactersController : ControllerBase
+    public class ArmiesController : ControllerBase
     {
-        private readonly ICharacterRepository _charRepo;
+        private readonly IArmyRepository _armyRepo;
         private readonly ILoggerService _logger;
         private readonly IMapper _mapper;
-        public CharactersController(
-            ICharacterRepository charRepo,
+        public ArmiesController(
+            IArmyRepository armyRepo,
             ILoggerService logger,
             IMapper mapper)
         {
-            _charRepo = charRepo;
+            _armyRepo = armyRepo;
             _logger = logger;
             _mapper = mapper;
         }
 
         /// <summary>
-        /// Get all Character records
+        /// Get all Army records
         /// </summary>
-        /// <returns>List of Character records</returns>
+        /// <returns>List of Army records</returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetCharacters()
+        public async Task<IActionResult> GetArmies()
         {
             var controllerName = GetControllerActionNames();
             try
             {
                 _logger.LogInfo($"{controllerName}: Attempted Call");
-                var items = await _charRepo.FindAll();
-                var response = _mapper.Map<List<CharacterDTO>>(items);
+                var items = await _armyRepo.FindAll();
+                var response = _mapper.Map<List<ArmyDTO>>(items);
                 _logger.LogInfo($"{controllerName}: Success");
                 return Ok(response);
             }
@@ -56,16 +56,16 @@ namespace player_log_api.Controllers
         }
 
         /// <summary>
-        /// Get a single Character record
+        /// Get an Army record
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>Character record</returns>
+        /// <returns>Army record</returns>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetCharacter(int id)
+        public async Task<IActionResult> GetArmy(int id)
         {
             var controllerName = GetControllerActionNames();
             try
@@ -76,13 +76,13 @@ namespace player_log_api.Controllers
                     _logger.LogWarn($"{controllerName}: Invalid ID - Item ID: {id}");
                     return BadRequest();
                 }
-                if (!await _charRepo.RecordExistsByID(id))
+                if (!await _armyRepo.RecordExistsByID(id))
                 {
                     _logger.LogWarn($"{controllerName}: Not Found - Item ID: {id}");
                     return NotFound();
                 }
-                var item = await _charRepo.FindByID(id);
-                var response = _mapper.Map<CharacterDTO>(item);
+                var item = await _armyRepo.FindByID(id);
+                var response = _mapper.Map<ArmyDTO>(item);
                 _logger.LogInfo($"{controllerName}: Success - Item ID: {id}");
                 return Ok(response);
             }
@@ -93,15 +93,15 @@ namespace player_log_api.Controllers
         }
 
         /// <summary>
-        /// Create a new Character record
+        /// Create a new Army record
         /// </summary>
-        /// <param name="character"></param>
-        /// <returns>Character record</returns>
+        /// <param name="army"></param>
+        /// <returns>Army record</returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreateCharacter([FromBody] CharacterDTO itemDTO)
+        public async Task<IActionResult> CreateArmy([FromBody] UpsertArmyDTO itemDTO)
         {
             var controllerName = GetControllerActionNames();
             try
@@ -117,9 +117,9 @@ namespace player_log_api.Controllers
                     _logger.LogWarn($"{controllerName}: Invalid Data");
                     return BadRequest(ModelState);
                 }
-                var item = _mapper.Map<Character>(itemDTO);
-                _logger.LogInfo($"{controllerName}: Attempting Create");
-                var isSuccess = await _charRepo.Create(item);
+                var item = _mapper.Map<Army>(itemDTO);
+                _logger.LogInfo($"{controllerName}: Attempted Create");
+                var isSuccess = await _armyRepo.Create(item);
                 if (!isSuccess)
                 {
                     return InternalError($"{controllerName}: Create Failed");
@@ -134,9 +134,9 @@ namespace player_log_api.Controllers
         }
 
         /// <summary>
-        /// Update a Character record
+        /// Update an Army record
         /// </summary>
-        /// <param name="character"></param>
+        /// <param name="army"></param>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
@@ -144,13 +144,13 @@ namespace player_log_api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> UpdateCharacter([FromBody] CharacterDTO itemDTO, int id)
+        public async Task<IActionResult> UpdateArmy([FromBody] UpsertArmyDTO itemDTO, int id)
         {
             var controllerName = GetControllerActionNames();
             try
             {
-                _logger.LogInfo($"{controllerName}: Attempting Call - Item ID: {id}");
-                if (id < 1 || id != itemDTO.CharacterID)
+                _logger.LogInfo($"{controllerName}: Attempted Call - Item ID: {id}");
+                if (id < 1 || id != itemDTO.ArmyID)
                 {
                     _logger.LogWarn($"{controllerName}: Invalid ID - Item ID: {id}");
                     return BadRequest();
@@ -160,20 +160,25 @@ namespace player_log_api.Controllers
                     _logger.LogWarn($"{controllerName}: Empty Request Body");
                     return BadRequest();
                 }
-                if (!await _charRepo.RecordExistsByID(id))
+                if (!ModelState.IsValid)
+                {
+                    _logger.LogWarn($"{controllerName}: Invalid Data");
+                    return BadRequest(ModelState);
+                }
+                if (!await _armyRepo.RecordExistsByID(id))
                 {
                     _logger.LogWarn($"{controllerName}: Not Found - Item ID: {id}");
                     return NotFound();
                 }
-                var item = _mapper.Map<Character>(itemDTO);
-                _logger.LogInfo($"{controllerName}: Attempting Update - Item ID: {id}");
-                var isSuccess = await _charRepo.Update(item);
+                var item = _mapper.Map<Army>(itemDTO);
+                _logger.LogInfo($"{controllerName}: Attempted Update - Item ID: {id}");
+                var isSuccess = await _armyRepo.Update(item);
                 if (!isSuccess)
                 {
-                    return InternalError($"{controllerName}: Update Failed - Item ID:{id}");
+                    return InternalError($"{controllerName}: Update Failed - Item ID: {id}");
                 }
                 _logger.LogInfo($"{controllerName}: Update Successful - Item ID: {id}");
-                return NoContent();
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -182,7 +187,7 @@ namespace player_log_api.Controllers
         }
 
         /// <summary>
-        /// Delete a Character Record
+        /// Delete an Aremy record
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -191,7 +196,7 @@ namespace player_log_api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> DeleteCharacter(int id)
+        public async Task<IActionResult> DeleteArmy(int id)
         {
             var controllerName = GetControllerActionNames();
             try
@@ -202,19 +207,19 @@ namespace player_log_api.Controllers
                     _logger.LogWarn($"{controllerName}: Invalid ID - Item ID: {id}");
                     return BadRequest();
                 }
-                if (!await _charRepo.RecordExistsByID(id))
+                if (!await _armyRepo.RecordExistsByID(id))
                 {
                     _logger.LogWarn($"{controllerName}: Not Found - Item ID: {id}");
                     return NotFound();
                 }
-                var item = await _charRepo.FindByID(id);
-                _logger.LogInfo($"{controllerName}: Attempting Delete - Item ID: {id}");
-                var isSuccess = await _charRepo.Delete(item);
+                var item = await _armyRepo.FindByID(id);
+                _logger.LogInfo($"{controllerName}: Attempted Delete - Item ID: {id}");
+                var isSuccess = await _armyRepo.Delete(item);
                 if (!isSuccess)
                 {
                     return InternalError($"{controllerName}: Delete Failed - Item ID: {id}");
                 }
-                _logger.LogInfo($"{controllerName}: Delete Successful - Item ID: {id}");
+                _logger.LogInfo($"{controllerName}: Delete successful - Item ID: {id}");
                 return NoContent();
             }
             catch (Exception ex)
@@ -234,7 +239,7 @@ namespace player_log_api.Controllers
         private ObjectResult InternalError(string message)
         {
             _logger.LogError(message);
-            return StatusCode(500, "Something went wrong, please contact the administrator");
+            return StatusCode(500, "Something went wrong, please contact the administrator.");
         }
     }
 }
