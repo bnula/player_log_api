@@ -16,7 +16,6 @@ namespace player_log_api.Data
             await SeedRoles(roleManager);
             await SeedUsers(userManager);
         }
-
         private static async Task SeedRoles(RoleManager<IdentityRole> roleManager)
         {
             if (await roleManager.RoleExistsAsync("administrator") == false)
