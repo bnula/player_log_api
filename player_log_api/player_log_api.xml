@@ -244,5 +244,24 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="T:player_log_api.Controllers.UsersController">
+            <summary>
+            User management for Player Log API
+            </summary>
+        </member>
+        <member name="M:player_log_api.Controllers.UsersController.Login(player_log_api.DTOs.UserDTO)">
+            <summary>
+            User Login Endpoint
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:player_log_api.Controllers.UsersController.Register(player_log_api.DTOs.UserDTO)">
+            <summary>
+            User Register Endpoint
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>
