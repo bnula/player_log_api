@@ -171,7 +171,7 @@ namespace player_log_api.Controllers
                 audience: _config["Jwt:Issuer"],
                 claims: claims,
                 notBefore: null,
-                expires: DateTime.Now.AddSeconds(1440),
+                expires: DateTime.Now.AddMinutes(120),
                 signingCredentials: credentials
                 );
             return new JwtSecurityTokenHandler().WriteToken(token);

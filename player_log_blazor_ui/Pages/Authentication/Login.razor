@@ -1,0 +1,49 @@
+﻿@page "/login"
+
+@inject IAuthenticationRepository _authRepo
+@inject NavigationManager _navMan
+
+<div class="card">
+    <h3 class="card-title">Log In</h3>
+    
+    @if (response == false)
+    {
+        <div class="alert alert-danger">
+            <p>Something went wrong!</p>
+        </div>
+    }
+
+    <div class="card-body">
+        <EditForm Model="model" OnValidSubmit="HandleLogin">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="form-group">
+                <label for="email">User Name</label>
+                <InputText Id="email" class="form-control" @bind-Value="model.EmailAddress" />
+                <ValidationMessage For="@(() => model.EmailAddress)" />
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <InputText Id="password" type="password" class="form-control" @bind-Value="model.Password" />
+                <ValidationMessage For="@(() => model.Password)" />
+            </div>
+            <button type="submit" class="btn btn-primary">Log In</button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private LoginModel model = new LoginModel();
+    private bool response = true;
+
+    private async Task HandleLogin()
+    {
+        var response = await _authRepo.Login(model);
+
+        if (response == true)
+        {
+            _navMan.NavigateTo("/");
+        }
+    }
+
+}

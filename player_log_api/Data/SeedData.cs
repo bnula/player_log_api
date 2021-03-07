@@ -48,8 +48,8 @@ namespace player_log_api.Data
                     UserName = "admin@page.com",
                     Email = "admin@page.com"
                 };
-
                 await userManager.CreateAsync(admin, "admin");
+                await userManager.AddToRoleAsync(admin, "administrator");
             }
 
             if (await userManager.FindByEmailAsync("user@page.com") == null)
@@ -61,6 +61,7 @@ namespace player_log_api.Data
                 };
 
                 await userManager.CreateAsync(user, "123");
+                await userManager.AddToRoleAsync(user, "user");
 
             }
         }

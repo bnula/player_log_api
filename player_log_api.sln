@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "player_log_api", "player_log_api\player_log_api.csproj", "{FEBBC28D-59EA-46AA-AEA2-9F5BC50882E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "player_log_blazor_ui", "player_log_blazor_ui\player_log_blazor_ui.csproj", "{D89B268E-F9BF-41A0-9330-2B97D3D3115B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "player_log_blazor_ui", "player_log_blazor_ui\player_log_blazor_ui.csproj", "{D89B268E-F9BF-41A0-9330-2B97D3D3115B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
