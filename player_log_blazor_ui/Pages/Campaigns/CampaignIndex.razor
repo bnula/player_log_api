@@ -32,11 +32,16 @@ else
                 @foreach (var campaign in model)
                 {
                     <tr>
-                        <td>@campaign.CampaignName</td>
+                        <td><a href="/campaigns/details/@campaign.CampaignId">@campaign.CampaignName</a></td>
                         <td>PH</td>
                         <td>PH</td>
                         <td>PH</td>
-                        <td>PH</td>
+                        <td>
+                            @foreach (var character in campaign.Characters)
+                            {
+                                <p>@character.CharacterName</p>
+                            }
+                        </td>
                         <td>
                             <a class="btn btn-info" href="/campaigns/edit/@campaign.CampaignId"><i class="oi oi-pencil"></i></a>
                             <a class="btn btn-danger" href="/campaigns/delete/@campaign.CampaignId"><i class="oi oi-trash"></i></a>

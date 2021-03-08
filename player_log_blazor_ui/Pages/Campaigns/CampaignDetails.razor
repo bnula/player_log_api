@@ -1,0 +1,43 @@
+﻿@page "/campaigns/details/{id}"
+
+@using player_log_blazor_ui.Campaigns
+
+@inject ICampaignRepository _campRepo
+@inject NavigationManager _navMan
+
+@if (model == null)
+{
+    <LoadingMessage Message="Loading data, please wait" />
+}
+else
+{
+<table class="table-responsive-md table-bordered">
+    <thead>
+        <tr>
+            <th>Campaign Name</th>
+            <th>Characters</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@model.CampaignName</td>
+            <td>
+                PH
+            </td>
+        </tr>
+    </tbody>
+</table>
+}
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    CampaignModel model = new CampaignModel();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var id = Int32.Parse(Id);
+        model = await _campRepo.Get(Endpoints.Campaigns, id);
+    }
+}

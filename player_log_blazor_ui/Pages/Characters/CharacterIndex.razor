@@ -1,0 +1,57 @@
+﻿@page "/characters/"
+
+@using player_log_blazor_ui.Characters
+
+@inject ICharacterRepository _charRepo
+@inject NavigationManager _navMan
+
+@if (model == null)
+{
+    <LoadingMessage Message="Loading data, please wait.." />
+}
+else
+{
+    if (model.Count < 1)
+    {
+        <p>No characters to display</p>
+    }
+    else
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Level</th>
+                    <th>Description</th>
+                    <th>Notes</th>
+                    <th>Campaign</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var character in model)
+                {
+                    <tr>
+                        <td>@character.CharacterName</td>
+                        <td>@character.Level</td>
+                        <td>@character.Description</td>
+                        <td>@character.Notes</td>
+                        <td>
+                            <a href="/campaigns/details/@character.Campaign.CampaignId">@character.Campaign.CampaignName</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    <a class="btn btn-primary" href="/characters/create/"><i class="oi oi-plus"></i> Add New Character</a>
+}
+
+@code {
+    IList<CharacterModel> model;
+
+    protected override async Task OnInitializedAsync()
+    {
+        model = await _charRepo.GetAll(Endpoints.Characters);
+    }
+}
