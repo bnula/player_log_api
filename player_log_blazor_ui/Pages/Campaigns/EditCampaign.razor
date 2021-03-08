@@ -1,0 +1,66 @@
+﻿@page "/campaigns/edit/{id}"
+
+@using player_log_blazor_ui.Campaigns
+
+@inject ICampaignRepository _campRepo
+@inject NavigationManager _navMan
+
+<h3>Edit Campaign</h3>
+
+@if (response == false)
+{
+    <ErrorMessage Message="Something went wrong.." />
+}
+
+@if (model == null)
+{
+    <LoadingMessage Message="Loading data, please wait.." />
+}
+else
+{
+    <EditForm Model="model" OnValidSubmit="UpdateItem">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <table class="table-sm table-bordered">
+            <thead>
+                <tr>
+                    <th>Campaign Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <InputText Id="campName" @bind-Value="model.CampaignName" class="form-control" />
+                        <ValidationMessage For="@(() => model.CampaignName)" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary"><i class="oi oi-check"> Edit</i></button>
+        <ReturnToList target="/campaigns/" />
+    </EditForm>
+}
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    private CampaignModel model = new CampaignModel();
+
+    public bool response = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var id = Int32.Parse(Id);
+        model = await _campRepo.Get(Endpoints.Campaigns, id);
+    }
+
+    private async Task UpdateItem()
+    {
+        var response = await _campRepo.Update(Endpoints.Campaigns, model, model.CampaignId);
+        if (response == true)
+        {
+            _navMan.NavigateTo("/campaigns/");
+        }
+    }
+}

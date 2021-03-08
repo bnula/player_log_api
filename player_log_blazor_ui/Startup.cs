@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using player_log_blazor_ui.Authentication;
+using player_log_blazor_ui.Campaigns;
 using player_log_blazor_ui.Data;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,7 @@ namespace player_log_blazor_ui
             services.AddScoped<AuthenticationStateProvider>(p => p.GetRequiredService<APIAuthenticationStateProvider>());
             services.AddScoped<JwtSecurityTokenHandler>();
             services.AddTransient<IAuthenticationRepository, AuthenticationRepository>();
+            services.AddTransient<ICampaignRepository, CampaignRepository>();
             services.AddSingleton<WeatherForecastService>();
         }
 

@@ -1,0 +1,14 @@
+﻿@inject NavigationManager _navMan  
+
+<button @onclick="ReturnBack" class="btn btn-dark"><i class="oi oi-arrow-circle-left"> Back To List</i></button>
+
+@code {
+    [Parameter]
+    public string target { get; set; }
+
+    private void ReturnBack()
+    {
+        _navMan.NavigateTo(target);
+    }
+}
+

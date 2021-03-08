@@ -1,0 +1,50 @@
+﻿@page "/campaigns/create"
+
+@using player_log_blazor_ui.Campaigns
+
+@attribute [Authorize(Roles = "administrator, user")]
+
+@inject ICampaignRepository _campRepo
+@inject NavigationManager _navMan
+
+@if (reponse == false)
+{
+    <ErrorMessage Message="Something went wrong" />
+}
+
+<EditForm Model="model" OnValidSubmit="CreateItem">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <table class="table-sm table-bordered">
+        <thead>
+            <tr>
+                <th>Campaign Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <InputText id="campName" @bind-Value="model.CampaignName" class="form-control" />
+                    <ValidationMessage For="@(() => model.CampaignName)" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</EditForm>
+
+<button class="btn btn-primary" @onclick="CreateItem"><i class="oi oi-check"></i> Create</button>
+<ReturnToList target="/campaigns/"></ReturnToList>
+
+@code {
+    CampaignModel model = new CampaignModel();
+    public bool reponse = true;
+
+    private async Task CreateItem()
+    {
+        var response = await _campRepo.Create(Endpoints.Campaigns, model);
+        if (response == true)
+        {
+            _navMan.NavigateTo("/campaigns/");
+        }
+    }
+}
